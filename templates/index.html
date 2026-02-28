@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AccessAI</title>
+</head>
+<body>
+
+<h1>AccessAI</h1>
+
+<form method="POST">
+    <select name="mode">
+        <option value="bharat">Bharat</option>
+        <option value="general">General</option>
+        <option value="auto">Auto</option>
+    </select>
+
+    <textarea name="question" rows="4"></textarea>
+    <button type="submit">Submit</button>
+</form>
+
+{% if answer %}
+<p>{{ answer }}</p>
+{% endif %}
+
+</body>
+</html>
