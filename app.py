@@ -7,20 +7,23 @@ st.title("AccessAI")
 
 mode = st.selectbox(
     "Choose mode",
-    ["Auto", "Bedrock", "Cache"]
+    ["Auto", "Cache", "Bedrock"]
 )
 
 question = st.text_input("Enter your question")
 
-if st.button("Submit"):
-    if question.strip() == "":
-        st.warning("Please enter a question.")
-    else:
+if st.button("Submit") and question:
+
+    with st.spinner("Processing..."):
         answer, source = process_query(question, mode)
 
-        if source == "cache":
-            st.success("Mode used: cache")
-        elif source == "bedrock":
-            st.success("Mode used: bedrock")
+    # Show source badge
+    if source == "cache":
+        st.success("Answer retrieved from CACHE")
+    elif source == "bedrock":
+        st.info("Answer generated using BEDROCK")
+    else:
+        st.warning("Unknown source")
 
-        st.write(answer)
+    st.markdown("---")
+    st.write(answer)

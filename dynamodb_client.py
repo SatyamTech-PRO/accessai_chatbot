@@ -1,5 +1,4 @@
 import boto3
-from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource(
     "dynamodb",
@@ -12,7 +11,7 @@ table = dynamodb.Table("AccessAI_ChatHistory")
 def get_cached_answer(question_key):
     try:
         response = table.get_item(
-            Key={"question": question_key}   # MUST match table partition key
+            Key={"question": question_key}
         )
 
         item = response.get("Item")
@@ -21,7 +20,7 @@ def get_cached_answer(question_key):
 
         return None
 
-    except ClientError as e:
+    except Exception as e:
         print("DynamoDB GET error:", e)
         return None
 
@@ -30,9 +29,9 @@ def save_answer(question_key, answer):
     try:
         table.put_item(
             Item={
-                "question": question_key,   # MUST match table partition key
+                "question": question_key,   # MUST match partition key
                 "answer": answer
             }
         )
-    except ClientError as e:
+    except Exception as e:
         print("DynamoDB PUT error:", e)
