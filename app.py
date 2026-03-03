@@ -10,14 +10,20 @@ mode = st.selectbox(
     ["Auto", "Cache", "Bedrock"]
 )
 
+# DEBUG MODE DISPLAY
+st.write("DEBUG MODE SELECTED:", mode)
+
 question = st.text_input("Enter your question")
 
 if st.button("Submit") and question:
 
+    st.write("DEBUG QUESTION:", question)
+
     with st.spinner("Processing..."):
         answer, source = process_query(question, mode)
 
-    # Show source badge
+    st.write("DEBUG SOURCE RETURNED:", source)
+
     if source == "cache":
         st.success("Answer retrieved from CACHE")
     elif source == "bedrock":
