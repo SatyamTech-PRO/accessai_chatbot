@@ -12,7 +12,7 @@ table = dynamodb.Table("AccessAI_ChatHistory")
 def get_cached_answer(question_key):
     try:
         response = table.get_item(
-            Key={"question": question_key}   # MUST MATCH TABLE
+            Key={"question": question_key}   # MUST match table partition key
         )
 
         item = response.get("Item")
@@ -30,7 +30,7 @@ def save_answer(question_key, answer):
     try:
         table.put_item(
             Item={
-                "question": question_key,   # MUST MATCH TABLE
+                "question": question_key,   # MUST match table partition key
                 "answer": answer
             }
         )
